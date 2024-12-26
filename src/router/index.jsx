@@ -4,7 +4,8 @@ import Register from "../pages/auth/register";
 import Home from "../pages/home";
 import Layout from '../components/layout';
 import Balances from '../pages/balances';
-
+import Payment from '../pages/payment';
+import Coupons from '../pages/coupons';
 export const routesArray = [
     {
         path: "*",
@@ -31,6 +32,22 @@ export const routesArray = [
         element: (
             <Layout> 
                 <Balances />
+            </Layout>
+        ),
+    },
+    {
+        path: "/payment/:balanceID",
+        element: (
+            <Layout> 
+                <Payment />
+            </Layout>
+        ),
+    },
+    {
+        path: "/coupons",
+        element: (
+            <Layout> 
+                <Coupons />
             </Layout>
         ),
     },

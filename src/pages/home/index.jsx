@@ -20,9 +20,10 @@ const Home = () => {
   useEffect(() => {
     if (user) {
       const fetchBalances = async () => {
-        dispatch(resetBalance());
+
         const balances = await getBalancesFromFirestore(user.uid);
         if (balances) {
+          console.log("balancessssss",balances);
           dispatch(setBalance(balances));
         }
         console.log(user.uid);
@@ -34,12 +35,12 @@ const Home = () => {
   }, [user, dispatch]);
 
   useEffect(() => {
-    console.log("balances",balances);
+    console.log("balancesddd",balances);
   }, [balances])
 
   if (loading) return <div>Loading...</div>;
   if (error) return <div>Error: {error.message}</div>;
-  const subCollections = balances.subCollections || {};
+
 
   return (
     <>
@@ -51,13 +52,17 @@ const Home = () => {
       )}
       <div>
         <div className="container flex flex-wrap align-items-center justify-content-between">
-            {Object.values(subCollections).map((subBalance, index) => (
+          {
+            balances && (
+              Object.values(balances).map((subBalance, index) => (
                 <BalanceCard
                 key={subBalance.id || index} // Alt koleksiyonun id'sini veya index'i kullan
                 title={subBalance.type}     // Bakiyenin başlığı
                 balance={subBalance.amount} // Bakiyenin miktarı
                 />
-            ))}
+            ))
+            )
+          }
         </div>
       </div>
     </>

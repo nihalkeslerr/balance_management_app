@@ -2,7 +2,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
-  subCollections: {
     cash: {
       id: 2,
       amount: 0,
@@ -28,7 +27,6 @@ const initialState = {
       amount: 0,
       type: 'Yol Geçiş Bakiyesi'
     }
-  }
 };
 
 const balanceSlice = createSlice({
