@@ -1,3 +1,15 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+
+
+table.table th {
+    background-color: #f5f5f5;
+    color: #16359b;
+}
+
+table.table td {
+    color: #6b7280;
+    
+}

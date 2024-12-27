@@ -1,31 +1,17 @@
 import React from 'react'
 
-function WarningModal({closeModal,modalMessage}) {
+function WarningModal({closeModal,modalMessage}) { //Uyarı Modalı
   return (
     <div>
         <div className="fixed inset-0 bg-gray-500 bg-opacity-50 flex items-center justify-center">
-          <div className="bg-white px-4 pt-2 pb-3 w-1/4 rounded-lg shadow-lg text-center">
-            <div className=" float-end w-100">
-              <button
-                onClick={closeModal}
-                className=" text-gray-600 px-2 py-1 rounded-md float-end hover:bg-gray-200"
-              >
-                X
-              </button>
-            </div>
+          <div className="bg-white px-4 py-14 w-1/4 rounded-lg shadow-lg text-center">
             <div className=" ">
               <p
-                className={`font-semibold uppercase ${modalMessage.color} text-lg`}
+                className={`font-semibold uppercase ${modalMessage.color} text-lg m-0`}
               >
                 {modalMessage.message}
               </p>
             </div>
-            {/*  <button
-              onClick={closeModal}
-              className="bg-blue-500 text-white px-2 py-1 rounded-md w-full"
-            >
-              Kapat
-            </button> */}
           </div>
         </div>
     </div>

@@ -62,7 +62,7 @@ export const getBalancesFromFirestore = async (userId) => {
  */
 
 export const createUserBalance = async (userId, initialBalances) => {
-  const userDoc = doc(db, 'balances', userId); // `balances` koleksiyonunda kullanıcı `uid` ile belge oluştur
+  const userDoc = doc(db, 'balances', userId); // balances koleksiyonunda kullanıcı id ile belge oluştur
   try {
     await setDoc(userDoc, initialBalances, { merge: true }); // Varsayılan bakiyeleri oluştur
     console.log('Kullanıcı bakiyeleri başarıyla oluşturuldu.');
@@ -73,8 +73,8 @@ export const createUserBalance = async (userId, initialBalances) => {
 
 /**
  * Belirli bir kullanıcının alt koleksiyonundaki amount değerini günceller.
- * @param {string} userId Kullanıcının UID'si
- * @param {string} balanceType Alt koleksiyonun adı (örneğin: 'cash', 'fuel')
+ * @param {string} userId Kullanıcının user id
+ * @param {string} balanceId bakiye id 
  * @param {number} newAmount Yeni amount değeri
  */
 
@@ -86,26 +86,29 @@ export const updateBalanceById = async (userId, balanceId, newAmount) => {
     if (docSnap.exists()) {
       const balances = docSnap.data();
 
-      // İlgili balance alanını id'ye göre bul
+      // İlgili balance alanını id ye göre bul
       const balanceKey = Object.keys(balances).find(
         (key) => balances[key].id === balanceId
       );
 
       if (balanceKey) {
-        // Dinamik olarak belirlenen alanı güncelle
         await updateDoc(docRef, {
           [`${balanceKey}.amount`]: newAmount,
         });
 
         console.log(`ID ${balanceId} için amount başarıyla güncellendi: ${newAmount}`);
+        return true; 
       } else {
         console.log(`ID ${balanceId} ile eşleşen bir balance bulunamadı.`);
+        return false; 
       }
     } else {
       console.log('Kullanıcı bakiyeleri dokümanı bulunamadı.');
+      return false; 
     }
   } catch (error) {
     console.error('Bakiyeyi güncellerken hata oluştu:', error);
+    return false; 
   }
 };
 
@@ -114,7 +117,7 @@ export const updateBalanceById = async (userId, balanceId, newAmount) => {
 
 /**
  * Belirli bir kullanıcının kupon bilgilerini getirir
- * @param {string} userId Kullanıcının UID'si
+ * @param {string} userId Kullanıcı UID
  */
 
 export const getUserCoupons = async (userId) => {
@@ -137,12 +140,12 @@ export const getUserCoupons = async (userId) => {
 
 /**
  * Belirli bir kullanıcı için kupon oluşturur.
- * @param {string} userId Kullanıcının UID'si
+ * @param {string} userId Kullanıcı UID si
  * @param {object} couponInfo Kupon objesi
  */
 
 export const createUserCoupon = async (userId, couponInfo) => {
-  const userCouponsCollection = collection(db, 'coupons', userId, 'userCoupons'); // Kullanıcının kuponları için alt koleksiyon
+  const userCouponsCollection = collection(db, 'coupons', userId, 'userCoupons'); // Kullanıcının kuponları için sub koleksiyon
   try {
     const docRef = await addDoc(userCouponsCollection, couponInfo); // Yeni bir kupon ekle
     console.log('Kupon başarıyla oluşturuldu. ID:', docRef.id);

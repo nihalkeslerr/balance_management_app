@@ -1,5 +1,3 @@
-import Header from "./components/header";
-
 import { useRoutes } from "react-router-dom";
 import { routesArray } from "./router";
 

@@ -1,70 +1,96 @@
-# Getting Started with Create React App
+# React Bakiye Yönetimi Uygulaması
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Bu proje, kullanıcıların bakiyelerini yönetebildiği, ödeme yapabildiği ve kupon oluşturabildiği bir uygulamadır. **React**, **Redux** ve **Firebase** kullanılarak geliştirilmiştir.
 
-## Available Scripts
+## 📋 Proje Gereksinimleri
 
-In the project directory, you can run:
+- **Giriş Sayfası**: Kullanıcılar, basit bir giriş ekranından oturum açabilir.
+- **Bakiyeler Sayfası**:
+  - Farklı tipteki bakiyeleri görebilir.
+  - Bakiyeler hem kart yapısı hem de tablo şeklinde görüntülenebilir.
+  - Bakiyeler Redux store’da tutulur.
+- **Ödeme Yapısı**:
+  - Kullanıcı bakiyesini kredi kartı veya kredi yöntemiyle artırabilir.
+- **Kupon Oluşturma**:
+  - Kullanıcı bakiyelerinden kupon oluşturabilir.
+  - Kuponlar Redux store’a kaydedilir ve ayrı bir sayfada görüntülenebilir.
+- **State Yönetimi**: Redux kullanılarak bakiyeler, kuponlar ve kullanıcı bilgileri yönetilir.
+- **Veri Depolama**: Firebase kullanılarak veriler senkronize edilir.
+- **Responsive Tasarım**: UI tasarımı Tailwind CSS ile desteklenmiştir.
 
-### `npm start`
+---
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## 🚀 Özellikler
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+1. **Giriş Sayfası**
+   - Basit bir kullanıcı adı ve şifre ile giriş yapılabilir. Firebase Authentication opsiyonel olarak desteklenmektedir.
+   
+2. **Bakiyeler Yönetimi**
+   - Yakıt, Nakit, Uçuş, Yol Geçiş ve Yemek bakiyelerini görüntüleyebilirsiniz.
+   - "Kupon Oluştur" butonuyla bakiyenizden kupon oluşturabilirsiniz.
 
-### `npm test`
+3. **Ödeme Yöntemleri**
+   - **Kredi Kartı Ödeme**:
+     - CVV kontrolüne bağlı olarak ödeme başarılı ya da başarısız olur.
+   - **Kredi ile Ödeme**:
+     - 10.000 TL üzerindeki krediler reddedilir.
+     - 10.000 TL altındaki krediler onaylanır.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+4. **Kupon Yönetimi**
+   - Kupon oluşturulduktan sonra ayrı bir tabloda görüntülenebilir.
 
-### `npm run build`
+5. **State Yönetimi**
+   - Redux store üzerinden bakiyeler ve kuponlar yönetilir.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+6. **Firebase Entegrasyonu**
+   - Firestore kullanılarak veriler senkronize edilir. Firebase kullanılamıyorsa, LocalStorage desteklenmektedir.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+---
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## 📦 Kurulum
 
-### `npm run eject`
+### 1. Depoyu Klonlayın
+```bash
+git clone https://github.com/yourusername/react-balance-management.git
+cd react-balance-management
+```
+### 2. Bağımlılıkları Kurun
+```bash
+npm install
+```
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+### 3. Firebase Konfigürasyonu
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+- **Firebase Console üzerinden yeni bir proje oluşturun.**
+- **Firestore Database'i etkinleştirin.**
+- **src/firebase/firebase.js dosyasını açın ve aşağıdaki formatta yapılandırma bilgilerinizi ekleyin:**
+   
+```bash
+const firebaseConfig = {
+  apiKey: "YOUR_API_KEY",
+  authDomain: "YOUR_AUTH_DOMAIN",
+  projectId: "YOUR_PROJECT_ID",
+  storageBucket: "YOUR_STORAGE_BUCKET",
+  messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
+  appId: "YOUR_APP_ID",
+};
+```
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+### 4. Projeyi Başlatın
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+```bash
+npm start
+```
 
-## Learn More
+## 🛠️ Kullanılan Teknolojiler
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+- **React**: Kullanıcı arayüzü oluşturmak için.
+- **Redux**: State yönetimi için.
+- **Firebase**: Veri depolama ve senkronizasyon için.
+- **Tailwind CSS, Bootstrap, css**: Responsive ve modern UI tasarımı için.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+## 🌟 Kullanım
+- **Giriş Yapın:** Mock API veya Firebase Authentication ile giriş yapın.
+- **Bakiyeleri Görüntüleyin:** Ana sayfada veya tabloda bakiyelerinizi görün.
+- **Ödeme Yapın:** Kredi kartı veya kredi yöntemiyle bakiye artırın.
+- **Kupon Oluşturun:** Bakiyenizden kupon oluşturun ve kuponlarınızı görüntüleyin.

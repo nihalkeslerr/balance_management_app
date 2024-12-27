@@ -1,11 +1,9 @@
 import React from 'react'
 
-function CreateCouponForm({ handleCreateCoupon, onChangeCouponInfo }) {
-
+function CreateCouponForm({ handleCreateCoupon, onChangeCouponInfo }) { //Yeni Kupon oluşturma formu
     const handleNumberInput = (event) => {
         event.target.value = event.target.value.replace(/[^0-9]/g, "");
     };
-
     return (
         <div>
             <form onSubmit={handleCreateCoupon}>

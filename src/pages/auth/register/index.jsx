@@ -16,20 +16,17 @@ const Register = () => {
     const [errorMessage, setErrorMessage] = useState('')
 
     useEffect(() => {
-        // Dispatch initializeUser to reset the user state on mount
         dispatch(initializeUser());
     }, [dispatch]);
 
-    // Use effect to navigate after login status change
     useEffect(() => {
         if (userLoggedIn) {
-            // Redirect to home page when user is logged in
             navigate('/');
         }
-    }, [userLoggedIn, navigate]); // Depend on userLoggedIn to rerun when state changes
+    }, [userLoggedIn, navigate]); 
 
-    const onSubmit = async (e) => {
-        e.preventDefault();
+    const onSubmit = async (e) => { //Register
+        e.preventDefault(); 
         
         if (password !== confirmPassword) {
             setErrorMessage("Passwords do not match.");
@@ -41,17 +38,16 @@ const Register = () => {
 
             try {
                 await doCreateUserWithEmailAndPassword(email, password);
-                // Registration is successful, now update the user state
                 dispatch(initializeUser());
             } catch (error) {
                 console.error("Registration error:", error);
                 setErrorMessage("An error occurred during registration. Please try again.");
             } finally {
-                setIsRegistering(false); // Allow user to try again
+                setIsRegistering(false);
             }
         }
     }
-
+    
     return (
         <>
             {userLoggedIn && (<Navigate to={'/'} replace={true} />)}
@@ -69,12 +65,12 @@ const Register = () => {
                 <div className="bg-white w-96 text-gray-600 space-y-5 p-4 shadow-xl border rounded-xl">
                     <div className="text-center mb-6">
                         <div className="mt-2">
-                            <h3 className="text-blue-800 text-xl font-semibold sm:text-2xl">REGISTER</h3>
+                            <h3 className="text-blue-800 text-xl font-semibold sm:text-2xl">KAYIT OL</h3>
                         </div>
                     </div>
                     <form onSubmit={onSubmit} className="space-y-4">
                         <div>
-                            <label className="text-sm text-gray-600">Email</label>
+                            <label className="text-sm text-gray-600">E-posta</label>
                             <input
                                 type="email"
                                 autoComplete='email'
@@ -85,7 +81,7 @@ const Register = () => {
                         </div>
 
                         <div>
-                            <label className="text-sm text-gray-600">Password</label>
+                            <label className="text-sm text-gray-600">Şifre</label>
                             <input
                                 disabled={isRegistering}
                                 type="password"
@@ -97,7 +93,7 @@ const Register = () => {
                         </div>
 
                         <div>
-                            <label className="text-sm text-gray-600">Confirm Password</label>
+                            <label className="text-sm text-gray-600">Şifre Doğrula</label>
                             <input
                                 disabled={isRegistering}
                                 type="password"
@@ -115,11 +111,11 @@ const Register = () => {
                             disabled={isRegistering}
                             className={`w-full px-4 py-2 text-white font-medium rounded-lg ${isRegistering ? 'bg-gray-300 cursor-not-allowed' : 'bg-gradient-to-r from-teal-200 to-blue-800 hover:shadow-xl transition duration-300'}`}
                         >
-                            {isRegistering ? 'Signing Up...' : 'Sign Up'}
+                            {isRegistering ? 'Kayıt Olunuyor...' : 'Kayıt Ol'}
                         </button>
                         <div className="text-sm text-center">
-                            Already have an account? {' '}
-                            <Link to={'/login'} className="text-center text-sm hover:underline">Sign in</Link>
+                            Zaten bir hesabın var mı? {' '}
+                            <Link to={'/login'} className="text-center text-sm hover:underline">Kayıt Ol</Link>
                         </div>
                     </form>
                 </div>

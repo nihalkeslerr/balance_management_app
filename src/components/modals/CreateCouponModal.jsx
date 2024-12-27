@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { setCoupons } from "../../features/couponSlice";
 import { initializeUser } from "../../features/auth/authSlice";
@@ -8,7 +9,7 @@ import { createUserCoupon, updateBalanceById } from "../../services/firestoreSer
 import CreateCouponForm from "../forms/CreateCouponForm";
 import WarningModal from "./WarningModal";
 
-function CreateCouponModal({ closeModal, balanceInfo, updateBalances  }) {
+function CreateCouponModal({ closeModal, balanceInfo  }) {
     const dispatch = useDispatch();
     const [user, loading, error] = useAuthState(auth);
     const [showModal, setShowModal] = useState("");
@@ -16,8 +17,7 @@ function CreateCouponModal({ closeModal, balanceInfo, updateBalances  }) {
         message: "",
         color: "",
     });
-
-    const generateRandomId = () => Math.floor(Math.random() * 1000000) + 1; //Generate random ID
+    const generateRandomId = () => Math.floor(Math.random() * 10000) + 1; //Generate random ID
 
     const generateCouponCode = (length = 6) => { //Generate random Coupon Code 
         const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'; // Kullanılacak karakterler
@@ -47,7 +47,8 @@ function CreateCouponModal({ closeModal, balanceInfo, updateBalances  }) {
         dispatch(initializeUser());
     }, [dispatch]);
 
-    const handleCreateCoupon = async (e) => {
+
+    const handleCreateCoupon = async (e) => { //Kupon oluştur fonksionu
         e.preventDefault();
         console.log(couponInfo.amount)
         console.log(balanceInfo)
@@ -79,16 +80,19 @@ function CreateCouponModal({ closeModal, balanceInfo, updateBalances  }) {
                 color: "text-red-800	",
             });
         }
-        setShowModal(true);
+        setShowModal(true); //Warning modalı aç
 
         setTimeout(() => {
             setShowModal(false);
-        }, 1500);
+        }, 1000);
 
         setTimeout(() => {
             closeModal();
-          }, 3000);
+          }, 2000);
 
+        setTimeout(() => {
+            window.location.reload();
+        }, 2000);
     };
 
     const onChangeCouponInfo = (name, value) => {
@@ -115,9 +119,7 @@ function CreateCouponModal({ closeModal, balanceInfo, updateBalances  }) {
                     </div>
                     <div className=" ">
                         <CreateCouponForm handleCreateCoupon={handleCreateCoupon} onChangeCouponInfo={onChangeCouponInfo} />
-
                     </div>
-
                 </div>
             </div>
             {showModal && (
