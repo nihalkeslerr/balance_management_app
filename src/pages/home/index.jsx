@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { initializeUser } from "../../features/auth/authSlice";
 import { setBalance} from "../../features/balanceSlice";
@@ -24,20 +24,14 @@ const Home = () => {
 
         const balances = await getBalancesFromFirestore(user.uid);
         if (balances) {
-          console.log("balancessssss",balances);
           dispatch(setBalance(balances));
         }
-        console.log(user.uid);
       };
       
       fetchBalances();
     }
 
   }, [user, dispatch]);
-
-  useEffect(() => {
-    console.log("balancesddd",balances);
-  }, [balances])
 
   if (loading) return <div>Loading...</div>;
   if (error) return <div>Error: {error.message}</div>;

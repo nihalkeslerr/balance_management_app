@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { setCoupons } from "../../features/couponSlice";
 import { initializeUser } from "../../features/auth/authSlice";
@@ -50,8 +49,6 @@ function CreateCouponModal({ closeModal, balanceInfo  }) {
 
     const handleCreateCoupon = async (e) => { //Kupon oluştur fonksionu
         e.preventDefault();
-        console.log(couponInfo.amount)
-        console.log(balanceInfo)
 
         if(couponInfo.amount === "0"){
             setModalMessage({
@@ -61,7 +58,6 @@ function CreateCouponModal({ closeModal, balanceInfo  }) {
         }
         else if(balanceInfo.amount  >= couponInfo.amount){
             let newAmount = parseInt(balanceInfo.amount) - parseInt(couponInfo.amount);
-            console.log(newAmount);
             if (user) {
                 const newCoupon = await createUserCoupon(user.uid, couponInfo);
                 if (newCoupon) {
@@ -98,10 +94,6 @@ function CreateCouponModal({ closeModal, balanceInfo  }) {
     const onChangeCouponInfo = (name, value) => {
         setCouponInfo({ ...couponInfo, [name]: value });
     };
-
-    useEffect(() => {
-        console.log("couponInfo", couponInfo)
-    }, [couponInfo])
 
     const closeModal2 = () => setShowModal(false);
     

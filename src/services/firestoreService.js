@@ -44,7 +44,6 @@ export const getBalancesFromFirestore = async (userId) => {
       return docSnap.data(); 
 
     } else {
-      console.log('No such document!');
       createUserBalance(userId, defaultBalances);
       
       return null;
@@ -65,7 +64,7 @@ export const createUserBalance = async (userId, initialBalances) => {
   const userDoc = doc(db, 'balances', userId); // balances koleksiyonunda kullanıcı id ile belge oluştur
   try {
     await setDoc(userDoc, initialBalances, { merge: true }); // Varsayılan bakiyeleri oluştur
-    console.log('Kullanıcı bakiyeleri başarıyla oluşturuldu.');
+    window.location.reload();
   } catch (error) {
     console.error('Bakiyeleri oluştururken hata oluştu:', error);
   }
@@ -95,15 +94,11 @@ export const updateBalanceById = async (userId, balanceId, newAmount) => {
         await updateDoc(docRef, {
           [`${balanceKey}.amount`]: newAmount,
         });
-
-        console.log(`ID ${balanceId} için amount başarıyla güncellendi: ${newAmount}`);
         return true; 
       } else {
-        console.log(`ID ${balanceId} ile eşleşen bir balance bulunamadı.`);
         return false; 
       }
     } else {
-      console.log('Kullanıcı bakiyeleri dokümanı bulunamadı.');
       return false; 
     }
   } catch (error) {
@@ -129,8 +124,6 @@ export const getUserCoupons = async (userId) => {
       id: doc.id,
       ...doc.data()
     }));
-
-    console.log('Kuponlar başarıyla alındı:', coupons);
     return coupons;
   } catch (error) {
     console.error('Kuponları alırken hata oluştu:', error);
@@ -148,7 +141,6 @@ export const createUserCoupon = async (userId, couponInfo) => {
   const userCouponsCollection = collection(db, 'coupons', userId, 'userCoupons'); // Kullanıcının kuponları için sub koleksiyon
   try {
     const docRef = await addDoc(userCouponsCollection, couponInfo); // Yeni bir kupon ekle
-    console.log('Kupon başarıyla oluşturuldu. ID:', docRef.id);
     return { id: docRef.id, ...couponInfo }; // Yeni oluşturulan kuponun verilerini döndür
   } catch (error) {
     console.error('Kupon oluştururken hata oluştu:', error);

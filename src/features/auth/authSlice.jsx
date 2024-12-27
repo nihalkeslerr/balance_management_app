@@ -26,11 +26,10 @@ export const initializeUser = createAsyncThunk(
                 email: user.email,
                 displayName: user.displayName,
                 photoURL: user.photoURL,
-                // Add any other serializable fields here
               },
             userLoggedIn: true,
             isEmailUser: isEmail,
-            isGoogleUser: !isEmail, // Assuming if it's not an email login, it's a Google login
+            isGoogleUser: !isEmail, 
           });
         } else {
           resolve({

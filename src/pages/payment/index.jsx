@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useParams, Navigate, useNavigate } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { updateBalanceById, getBalancesFromFirestore } from "../../services/firestoreService";
@@ -47,10 +47,8 @@ function Payment() { //Ödeme Sayfası
 
                 const balances = await getBalancesFromFirestore(user.uid);
                 if (balances) {
-                    console.log("balancessssss", balances);
                     dispatch(setBalance(balances));
                 }
-                console.log(user.uid);
             };
 
             fetchBalances();
@@ -69,7 +67,6 @@ function Payment() { //Ödeme Sayfası
             });
         } else if (creditInfo.cvv === "000") {
             let newAmount = parseInt(selectedBalance.amount) + parseInt(creditInfo.amount);
-            console.log(newAmount);
             if (user && selectedBalance) {
                 const updateSuccess = await updateBalanceById(user.uid, selectedBalance.id, newAmount);
                 if (updateSuccess) {
@@ -111,7 +108,6 @@ function Payment() { //Ödeme Sayfası
             });
         } else if (loanInfo.amount <= 10000) {
             let newAmount = parseInt(selectedBalance.amount) + parseInt(loanInfo.amount);
-            console.log(newAmount);
 
             if (user && selectedBalance) {
                 const updateSuccess = await updateBalanceById(user.uid, selectedBalance.id, newAmount);
@@ -167,10 +163,6 @@ function Payment() { //Ödeme Sayfası
             setSelectedBalance(foundBalance); // Bulunan bakiyeyi state'e atıyoruz
         }
     }, [balanceID, balances]);
-
-    useEffect(() => {
-        console.log("selectedBalance:", selectedBalance);
-    }, [selectedBalance]);
 
     return (
         <div className="container w-full self-center place-content-center place-items-center">

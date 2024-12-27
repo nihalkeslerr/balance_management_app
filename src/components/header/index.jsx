@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate} from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { doSignOut } from '../../firebase/auth';
 import { auth } from "../../firebase/firebase";
@@ -32,15 +32,20 @@ const Header = () => {
             alert("An error occurred while logging out. Please try again.");
         }
     };
-    
+
     useEffect(() => {
-        console.log("userLoggedIn:", userLoggedIn);
-    }, [userLoggedIn])
-
-
+        if(user){
+            if (!userLoggedIn) {
+                navigate('/login');
+              }
+        }
+      }, [userLoggedIn, navigate,user]);
+      
     if (error) return <div>Error: {error.message}</div>;
 
-    return (
+
+
+    return (     
         <nav className=' bg-white p-6 shadow sticky top-0'>
             <div className='flex items-center lg:justify-between justify-center flex-wrap container'>
                 <div>

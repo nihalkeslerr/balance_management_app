@@ -10,7 +10,6 @@ function CreditCardForm({ handleCreditCardSubmit, onChangeCreditInput }) { // Kr
   return (
     <div className=" flex justify-content-center ">
       <div className="md:w-1/2 w-full p-2">
-       {/*  <p className="text-xl text-gray-800 bg-gray-100 py-1 px-3 mt-2 rounded-md text-center  hover:bg-gray-200">Kredi Kartı Formu</p> */}
         <form onSubmit={handleCreditCardSubmit}>
           <label htmlFor="" className="text-gray-600 mb-1">Kart Numarası:<span className="text-red-600 ml-2">*</span></label>
           <input
@@ -32,7 +31,7 @@ function CreditCardForm({ handleCreditCardSubmit, onChangeCreditInput }) { // Kr
                 placeholder="MM/YY"
                 maxLength="5"
                 onInput={(e) => {
-                  e.target.value = e.target.value.replace(/[^0-9\/]/g, "");
+                  e.target.value = e.target.value.replace(/[^0-9/]/g, "");
                 }}
                 onChange={(e) => onChangeCreditInput(e.target.name, e.target.value)}
                 className="border p-2  w-full mr-2 rounded-md"

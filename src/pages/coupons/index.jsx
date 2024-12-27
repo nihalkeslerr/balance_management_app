@@ -4,7 +4,7 @@ import { initializeUser } from "../../features/auth/authSlice";
 import { getUserCoupons } from "../../services/firestoreService";
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { auth } from "../../firebase/firebase";
-import { setCoupons, addCoupon } from "../../features/couponSlice";
+import { setCoupons } from "../../features/couponSlice";
 
 function Coupons() { //Kuponların gösterildiği tablo
     const dispatch = useDispatch();
@@ -21,10 +21,8 @@ function Coupons() { //Kuponların gösterildiği tablo
 
                 const coupons = await getUserCoupons(user.uid);
                 if (coupons) {
-                    console.log("couponsssss", coupons);
                     dispatch(setCoupons(coupons));
                 }
-                console.log(user.uid);
             };
 
             fetchCoupons();
